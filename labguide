@@ -1,0 +1,72 @@
+This lab will focus on installation and setup of salt on a pair of OpenSUSE systems.  
+Goals for this lab include:
+  Install and configure the salt-master
+  Install and configure the salt-minion
+  Accept the minion keys on the master
+  Test connectivity with the minion
+  Execute basic commands on the minion
+  Learn how to target minions
+  Use the salt built-in documentation to learn about modules and functions
+
+Module 1: - Basic SALT installation, setup and verification and executing commands remotely
+
+Install and Setup Salt Master
+  Configure salt-master to auto-start with the machine
+  Add a respository and install the latest SALT
+  Open the firewall for the Master ports
+  Talk about why it’s not a good idea to manage your master as a minion
+
+Install and Setup Salt Minions
+  Process for a GUI/Desktop installation
+  Process for a Server/CLI installation
+    Sudo yast2
+    Set hostname, domain name
+    Set hostname via DHCP = NO
+    Set dns, domain-search
+    Set domain-search
+    Systemctl restart network
+    Ip addr
+    Ip route
+  Add repository and refresh (yast2 commands)
+    Install salt-minion (yast2 commands)
+  Edit /etc/salt/minion file to add master
+    NOTE: with a salt dns name this is not required
+    Sudo vim /etc/salt/minion
+  Set salt-minion to auto-start with machine
+    Sudo Systemctl enable salt-minion
+  (No firewall changes needed)
+  Sudo reboot
+
+Return to the Master Server
+  Accept Keys from Minions
+    Salt-key -L
+    Salt-key -A
+    Salt-key -L
+    List the Keys
+  Test Connectivity
+    Salt ‘*’ test.ping
+  Check the version of the minion
+    Salt ‘*’ test.version (should be 2019.2.0)
+  Understand the directory structure for Salt
+    On SUSE /srv/salt
+  Run commands remotely
+    Salt ‘*’ cmd.run ‘cat /proc/cpuinfo/’
+    Salt ‘*’ cmd.run ‘cat /etc/
+    Salt ‘*’ cmd.run ‘cat /etc/os-release’
+    Salt ‘*’ timezone.get_zone
+  Discussion topic – why the . in some commands and underscore in others
+  Targeting a specific minion vs using globs. 
+  Using salt to get documentation for commands and modules
+    Salt ‘*’ sys.doc sys
+    Salt ‘*’ sys.doc test
+    For a much more in depth look at the various modules and functions see the documentation at saltstack.com
+  Let’s reboot the minion
+    Salt ‘minion1’ system.reboot
+  Before leaving module (1) we are going to have a little fun. 
+    Post a message to slack
+      salt ‘minion1’ slack.post_message api=??? channel=’testchannel’ message=”This is a test” from=’Whomever you want to post as” 
+
+You have now completed module one.
+Feel free to continue testing commands against minion1. 
+
+  
