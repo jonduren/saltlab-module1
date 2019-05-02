@@ -1,3 +1,6 @@
+# Salt Learning Lab Module 1
+# Intstallation, Setup, and Basic Functionality
+
 This lab will focus on installation and setup of salt on a pair of OpenSUSE systems.  
 Goals for this lab include:
   Install and configure the salt-master
